@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Blog & Insights | Core Growth Solutions</title>
+    <meta name="description" content="Expert articles on reputation management, business analytics, AI demand forecasting, and marketing insights for local businesses.">
+    <link rel="icon" type="image/png" href="logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * { cursor: none !important; }
+        body { font-family: 'Inter', sans-serif; background: #fff; color: #111; overflow-x: hidden; }
+        .custom-cursor-outer { width: 44px; height: 44px; border: 2px solid #1E3A8A; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transition: all 0.3s cubic-bezier(0.23,1,0.32,1); transform: translate(-50%,-50%); top:0; left:0; background: rgba(30,58,138,0.02); backdrop-filter: blur(4px); box-shadow: 0 0 20px rgba(30,58,138,0.1); }
+        .custom-cursor-inner { width: 8px; height: 8px; background: #1E3A8A; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); top:0; left:0; box-shadow: 0 0 15px rgba(30,58,138,0.5); transition: 0.2s ease; }
+        .custom-cursor-outer.hovering { width: 64px; height: 64px; border-color: #7DD3FC; background: rgba(125,211,252,0.05); }
+        .custom-cursor-inner.hovering { width: 14px; height: 14px; background: #7DD3FC; }
+        .custom-cursor-outer.clicking { transform: translate(-50%,-50%) scale(0.85); border-color: #2563eb; }
+        .custom-cursor-inner.clicking { transform: translate(-50%,-50%) scale(1.5); background: #2563eb; }
+        html { scroll-behavior: smooth; }
+        @media (max-width: 768px) {
+            .nav-links { position: fixed; top: 72px; left: 0; right: 0; background: white; padding: 20px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); flex-direction: column; align-items: center; gap: 16px; display: none; z-index: 50; }
+            .nav-links.open { display: flex; }
+            .mobile-menu-btn { display: block !important; }
+        }
+        .logo-image { width: 32px; height: 32px; filter: drop-shadow(0 4px 6px #BFDBFE); transition: transform 0.2s; }
+        @media (min-width: 768px) { .logo-image { width: 40px; height: 40px; } }
+        .logo-image:hover { transform: scale(1.05); }
+        h1 { font-size: clamp(2.5rem, 6vw, 4rem); }
+        h2 { font-size: clamp(2rem, 5vw, 3rem); }
+        .bg-darkBlue { background-color: #1E3A8A; }
+        .text-darkBlue { color: #1E3A8A; }
+        .bg-lightBlue-50 { background-color: #EFF6FF; }
+        .bg-lightBlue-100 { background-color: #DBEAFE; }
+        .text-lightBlue-200 { color: #BFDBFE; }
+        .text-lightBlue-300 { color: #7DD3FC; }
+        .text-lightBlue-600 { color: #0284C7; }
+        .border-darkBlue { border-color: #1E3A8A; }
+        .hover\:bg-lightBlue-50:hover { background-color: #F0F9FF; }
+        .legal-footer a:hover { color: #BFDBFE; text-decoration: underline; }
+        .filter-btn.active { background-color: #1E3A8A; color: white; border-color: #1E3A8A; }
+    </style>
+</head>
+<body>
+    <div class="custom-cursor-outer" id="customCursorOuter"></div>
+    <div class="custom-cursor-inner" id="customCursorInner"></div>
+
+    <!-- Navigation (same as home) -->
+    <nav class="bg-white border-b border-gray-200 fixed w-full z-50 top-0 shadow-sm" data-aos="fade-down">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 md:py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <img src="logo.png" alt="Core Growth Solutions" class="logo-image">
+                <span class="font-bold text-xl md:text-2xl tracking-tight text-darkBlue">Core Growth Solutions</span>
+            </div>
+            <button class="mobile-menu-btn md:hidden text-darkBlue text-2xl" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="hidden md:flex space-x-8 font-medium text-gray-700">
+                <a href="index.html" class="hover:text-darkBlue transition">Home</a>
+                <a href="services.html" class="hover:text-darkBlue transition">Services</a>
+                <a href="blog.html" class="hover:text-darkBlue transition">Blog</a>
+                <a href="about.html" class="hover:text-darkBlue transition">About</a>
+                <a href="contact.html" class="hover:text-darkBlue transition">Contact</a>
+            </div>
+            <div class="nav-links hidden" id="mobileNav">
+                <a href="index.html" class="hover:text-darkBlue transition">Home</a>
+                <a href="services.html" class="hover:text-darkBlue transition">Services</a>
+                <a href="blog.html" class="hover:text-darkBlue transition">Blog</a>
+                <a href="about.html" class="hover:text-darkBlue transition">About</a>
+                <a href="contact.html" class="hover:text-darkBlue transition">Contact</a>
+                <a href="contact.html" class="bg-darkBlue text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-blue-800 transition shadow-md mt-4">Get demo</a>
+            </div>
+            <div class="hidden md:block">
+                <a href="contact.html" class="bg-darkBlue text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-blue-800 transition shadow-md">Get demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-16 md:pt-20">
+        <!-- Hero -->
+        <section class="bg-gray-50 py-12 md:py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center" data-aos="fade-up">
+                <span class="bg-lightBlue-100 text-darkBlue text-sm font-semibold px-4 py-2 rounded-full">BLOG & INSIGHTS</span>
+                <h1 class="text-4xl md:text-5xl font-bold text-darkBlue mt-4">Latest articles for local business growth</h1>
+                <p class="text-gray-600 max-w-3xl mx-auto mt-4 text-lg">Actionable advice on reputation, analytics, demand forecasting, and marketing — all powered by AI.</p>
+            </div>
+        </section>
+
+        <!-- Category filters -->
+        <section class="py-8 border-b">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
+                <div class="flex flex-wrap justify-center gap-2 md:gap-4" id="filterButtons">
+                    <button class="filter-btn active px-4 py-2 rounded-full border border-darkBlue text-darkBlue font-medium text-sm md:text-base hover:bg-darkBlue hover:text-white transition" data-filter="all">All</button>
+                    <button class="filter-btn px-4 py-2 rounded-full border border-gray-300 text-gray-700 font-medium text-sm md:text-base hover:border-darkBlue hover:text-darkBlue transition" data-filter="reputation">Reputation Management</button>
+                    <button class="filter-btn px-4 py-2 rounded-full border border-gray-300 text-gray-700 font-medium text-sm md:text-base hover:border-darkBlue hover:text-darkBlue transition" data-filter="analytics">Business Analytics</button>
+                    <button class="filter-btn px-4 py-2 rounded-full border border-gray-300 text-gray-700 font-medium text-sm md:text-base hover:border-darkBlue hover:text-darkBlue transition" data-filter="demand">AI Sales & Demand Forecasting</button>
+                    <button class="filter-btn px-4 py-2 rounded-full border border-gray-300 text-gray-700 font-medium text-sm md:text-base hover:border-darkBlue hover:text-darkBlue transition" data-filter="marketing">Marketing Insights</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog posts grid -->
+        <section class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="blogPostsGrid">
+                <!-- Reputation Management Posts -->
+                <div class="blog-card bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300" data-category="reputation" data-aos="fade-up">
+                    <div class="h-48 bg-darkBlue flex items-center justify-center text-white text-4xl"><i class="fas fa-star"></i></div>
+                    <div class="p-6">
+                        <span class="text-xs font-semibold text-lightBlue-600 bg-lightBlue-100 px-3 py-1 rounded-full">Reputation Management</span>
+                        <h3 class="text-xl font-bold text-darkBlue mt-3 mb-2">How businesses get more Google reviews</h3>
+                        <p class="text-gray-500 text-sm mb-4">Learn proven strategies to increase your Google review count and improve your local search visibility.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-400">March 10, 2025</span>
+                            <a href="blog-reputation-how-to-get-more-reviews.html" class="text-darkBlue font-semibold hover:underline text-sm">Read more →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-card bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300" data-category="reputation" data-aos="fade-up" data-aos-delay="50">
+                    <div class="h-48 bg-darkBlue flex items-center justify-center text-white text-4xl"><i class="fas fa-comment-dots"></i></div>
+                    <div class="p-6">
+                        <span class="text-xs font-semibold text-lightBlue-600 bg-lightBlue-100 px-3 py-1 rounded-full">Reputation Management</span>
+                        <h3 class="text-xl font-bold text-darkBlue mt-3 mb-2">How to respond to bad Google reviews</h3>
+                        <p class="text-gray-500 text-sm mb-4">Turn negative feedback into an opportunity. Best practices for replying to unhappy customers.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-400">March 5, 2025</span>
+                            <a href="blog-reputation-respond-to-bad-reviews.html" class="text-darkBlue font-semibold hover:underline text-sm">Read more →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-card bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300" data-category="reputation" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-48 bg-darkBlue flex items-center justify-center text-white text-4xl"><i class="fas fa-exclamation-triangle"></i></div>
+                    <div class="p-6">
+                        <span class="text-xs font-semibold text-lightBlue-600 bg-lightBlue-100 px-3 py-1 rounded-full">Reputation Management</span>
+                        <h3 class="text-xl font-bold text-darkBlue mt-3 mb-2">Why customers leave negative reviews</h3>
+                        <p class="text-gray-500 text-sm mb-4">Understand the psychology behind negative reviews and how to address root causes.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-400">February 28, 2025</span>
+                            <a href="blog-reputation-why-negative-reviews.html" class="text-darkBlue font-semibold hover:underline text-sm">Read more →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Analytics Posts -->
+                <div class="blog-card bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300" data-category="analytics" data-aos="fade-up" data-aos-delay="150">
+                    <div class="h-48 bg-darkBlue flex items-center justify-center text-white text-4xl"><i class="fas fa-chart-pie"></i></div>
+                    <div class="p-6">
+                        <span class="text-xs font-semibold text-lightBlue-600 bg-lightBlue-100 px-3 py-1 rounded-full">Business Analytics</span>
+                        <h3 class="text-xl font-bold text-darkBlue mt-3 mb-2">AI tools for local businesses</h3>
+                        <p class="text-gray-500 text-sm mb-4">A roundup of the most effective AI tools that can help small businesses compete with bigger players.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-400">March 12, 2025</span>
+                            <a href="blog-analytics-ai-tools.html" class="text-darkBlue font-semibold hover:underline text-sm">Read more →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-card bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300" data-category="analytics" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-48 bg-darkBlue flex items-center justify-center text-white text-4xl"><i class="fas fa-smile"></i></div>
+                    <div class="p-6">
+                        <span class="text-xs font-semibold text-lightBlue-600 bg-lightBlue-100 px-3 py-1 rounded-full">Business Analytics</span>
+                        <h3 class="text-xl font-bold text-darkBlue mt-3 mb-2">How sentiment analysis improves customer experience</h3>
+                        <p class="text-gray-500 text-sm mb-4">Learn how AI can read between the lines of customer feedback to improve service.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-400">March 8, 2025</span>
+                            <a href="blog-analytics-sentiment-analysis.html" class="text-darkBlue font-semibold hover:underline text-sm">Read more →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-card bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300" data-category="analytics" data-aos="fade-up" data-aos-delay="250">
+                    <div class="h-48 bg-darkBlue flex items-center justify-center text-white text-4xl"><i class="fas fa-users"></i></div>
+                    <div class="p-6">
+                        <span class="text-xs font-semibold text-lightBlue-600 bg-lightBlue-100 px-3 py-1 rounded-full">Business Analytics</span>
+                        <h3 class="text-xl font-bold text-darkBlue mt-3 mb-2">Customer data analytics for small businesses</h3>
+                        <p class="text-gray-500 text-sm mb-4">How to use customer data to make smarter decisions without a data science degree.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-400">March 1, 2025</span>
+                            <a href="blog-analytics-customer-data.html" class="text-darkBlue font-semibold hover:underline text-sm">Read more →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Sales & Demand Forecasting Posts -->
+                <div class="blog-card bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300" data-category="demand" data-aos="fade-up" data-aos-delay="300">
+                    <div class="h-48 bg-darkBlue flex items-center justify-center text-white text-4xl"><i class="fas fa-chart-line"></i></div>
+                    <div class="p-6">
+                        <span class="text-xs font-semibold text-lightBlue-600 bg-lightBlue-100 px-3 py-1 rounded-full">AI Sales & Demand Forecasting</span>
+                        <h3 class="text-xl font-bold text-darkBlue mt-3 mb-2">Local business marketing forecasting</h3>
+                        <p class="text-gray-500 text-sm mb-4">Predict which marketing channels will perform best in your local market.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-400">March 15, 2025</span>
+                            <a href="blog-demand-marketing-forecasting.html" class="text-darkBlue font-semibold hover:underline text-sm">Read more →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-card bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300" data-category="demand" data-aos="fade-up" data-aos-delay="350">
+                    <div class="h-48 bg-darkBlue flex items-center justify-center text-white text-4xl"><i class="fas fa-phone-alt"></i></div>
+                    <div class="p-6">
+                        <span class="text-xs font-semibold text-lightBlue-600 bg-lightBlue-100 px-3 py-1 rounded-full">AI Sales & Demand Forecasting</span>
+                        <h3 class="text-xl font-bold text-darkBlue mt-3 mb-2">Lead generation for service businesses</h3>
+                        <p class="text-gray-500 text-sm mb-4">Forecast lead volume and optimize your sales team’s time.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-400">March 7, 2025</span>
+                            <a href="blog-demand-lead-generation.html" class="text-darkBlue font-semibold hover:underline text-sm">Read more →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-card bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300" data-category="demand" data-aos="fade-up" data-aos-delay="400">
+                    <div class="h-48 bg-darkBlue flex items-center justify-center text-white text-4xl"><i class="fas fa-user-plus"></i></div>
+                    <div class="p-6">
+                        <span class="text-xs font-semibold text-lightBlue-600 bg-lightBlue-100 px-3 py-1 rounded-full">AI Sales & Demand Forecasting</span>
+                        <h3 class="text-xl font-bold text-darkBlue mt-3 mb-2">Customer acquisition forecasting</h3>
+                        <p class="text-gray-500 text-sm mb-4">Use AI to predict how many new customers you’ll gain next month.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-400">February 25, 2025</span>
+                            <a href="blog-demand-customer-acquisition.html" class="text-darkBlue font-semibold hover:underline text-sm">Read more →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marketing Insights Posts -->
+                <div class="blog-card bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300" data-category="marketing" data-aos="fade-up" data-aos-delay="450">
+                    <div class="h-48 bg-darkBlue flex items-center justify-center text-white text-4xl"><i class="fas fa-bullhorn"></i></div>
+                    <div class="p-6">
+                        <span class="text-xs font-semibold text-lightBlue-600 bg-lightBlue-100 px-3 py-1 rounded-full">Marketing Insights</span>
+                        <h3 class="text-xl font-bold text-darkBlue mt-3 mb-2">Local business marketing strategies</h3>
+                        <p class="text-gray-500 text-sm mb-4">Proven marketing tactics that work for local service businesses.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-400">March 14, 2025</span>
+                            <a href="blog-marketing-local-strategies.html" class="text-darkBlue font-semibold hover:underline text-sm">Read more →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-card bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300" data-category="marketing" data-aos="fade-up" data-aos-delay="500">
+                    <div class="h-48 bg-darkBlue flex items-center justify-center text-white text-4xl"><i class="fas fa-filter"></i></div>
+                    <div class="p-6">
+                        <span class="text-xs font-semibold text-lightBlue-600 bg-lightBlue-100 px-3 py-1 rounded-full">Marketing Insights</span>
+                        <h3 class="text-xl font-bold text-darkBlue mt-3 mb-2">Lead generation for service businesses</h3>
+                        <p class="text-gray-500 text-sm mb-4">Generate high-quality leads with AI-powered targeting.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-400">March 3, 2025</span>
+                            <a href="blog-marketing-lead-generation.html" class="text-darkBlue font-semibold hover:underline text-sm">Read more →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-card bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300" data-category="marketing" data-aos="fade-up" data-aos-delay="550">
+                    <div class="h-48 bg-darkBlue flex items-center justify-center text-white text-4xl"><i class="fas fa-user-check"></i></div>
+                    <div class="p-6">
+                        <span class="text-xs font-semibold text-lightBlue-600 bg-lightBlue-100 px-3 py-1 rounded-full">Marketing Insights</span>
+                        <h3 class="text-xl font-bold text-darkBlue mt-3 mb-2">Customer acquisition strategies</h3>
+                        <p class="text-gray-500 text-sm mb-4">Acquire and retain customers with data-driven marketing.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-400">February 20, 2025</span>
+                            <a href="blog-marketing-customer-acquisition.html" class="text-darkBlue font-semibold hover:underline text-sm">Read more →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="bg-darkBlue text-white py-16">
+            <div class="max-w-4xl mx-auto text-center px-4">
+                <h2 class="text-3xl md:text-4xl font-bold">Want more insights like these?</h2>
+                <p class="text-lightBlue-200 mt-4 text-lg">Subscribe to our newsletter for the latest articles and AI tips.</p>
+                <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+                    <input type="email" placeholder="Your email" class="px-4 py-3 rounded-full text-gray-900 w-full focus:outline-none">
+                    <button class="bg-white text-darkBlue px-6 py-3 rounded-full font-semibold hover:bg-lightBlue-100 transition whitespace-nowrap">Subscribe</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer (same as home) -->
+        <footer class="bg-black text-white py-10 md:py-12 legal-footer">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <img src="logo.png" alt="Core Growth Solutions" class="w-6 h-6 md:w-8 md:h-8">
+                        <span class="font-bold text-lg md:text-xl">Core Growth Solutions</span>
+                    </div>
+                    <p class="text-gray-400 text-xs md:text-sm mt-4">AI-powered analytics and business intelligence for local service companies.</p>
+                    <div class="flex gap-3 mt-4 text-xl">
+                        <a href="https://www.linkedin.com/in/core-growth-solutions-2131253b5" target="_blank" class="hover:text-lightBlue-300"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="hover:text-lightBlue-300"><i class="fab fa-x-twitter"></i></a>
+                    </div>
+                    <p class="text-gray-400 text-xs mt-4">info@coregrowthsolutions.com</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lightBlue-300 text-sm md:text-base">Company</h4>
+                    <ul class="mt-3 space-y-1.5 md:space-y-2 text-xs md:text-sm text-gray-300">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lightBlue-300 text-sm md:text-base">Legal</h4>
+                    <ul class="mt-3 space-y-1.5 md:space-y-2 text-xs md:text-sm text-gray-300">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="refund.html">Refund Policy</a></li>
+                        <li><a href="compliance.html">Compliance</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lightBlue-300 text-sm md:text-base">Contact</h4>
+                    <ul class="mt-3 space-y-1.5 text-xs md:text-sm text-gray-300">
+                        <li><i class="fas fa-envelope mr-2 w-4"></i> info@coregrowthsolutions.com</li>
+                        <li><i class="fas fa-map-pin mr-2 w-4"></i> Pune, Maharashtra, India</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 max-w-7xl mx-auto mt-8 pt-6 px-4 sm:px-6 text-xs text-gray-500 text-center">
+                © 2026 Core Growth Solutions. All rights reserved.
+            </div>
+        </footer>
+    </main>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        (function() {
+            AOS.init({ duration: 800, once: true });
+
+            // Dual cursor (same as before)
+            const cursorOuter = document.getElementById('customCursorOuter');
+            const cursorInner = document.getElementById('customCursorInner');
+            let mouseX = 0, mouseY = 0;
+            let outerX = 0, outerY = 0;
+            let innerX = 0, innerY = 0;
+            const outerLag = 0.08, innerLag = 0.25;
+            document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+            function animate() {
+                outerX += (mouseX - outerX) * outerLag;
+                outerY += (mouseY - outerY) * outerLag;
+                innerX += (mouseX - innerX) * innerLag;
+                innerY += (mouseY - innerY) * innerLag;
+                cursorOuter.style.left = outerX + 'px'; cursorOuter.style.top = outerY + 'px';
+                cursorInner.style.left = innerX + 'px'; cursorInner.style.top = innerY + 'px';
+                requestAnimationFrame(animate);
+            }
+            animate();
+
+            if (window.matchMedia("(hover: hover)").matches) {
+                const interactive = document.querySelectorAll('a, button, input, textarea, [clickable]');
+                interactive.forEach(el => {
+                    el.addEventListener('mouseenter', () => { cursorOuter.classList.add('hovering'); cursorInner.classList.add('hovering'); });
+                    el.addEventListener('mouseleave', () => { cursorOuter.classList.remove('hovering'); cursorInner.classList.remove('hovering'); });
+                });
+                document.addEventListener('mousedown', () => { cursorOuter.classList.add('clicking'); cursorInner.classList.add('clicking'); });
+                document.addEventListener('mouseup', () => { cursorOuter.classList.remove('clicking'); cursorInner.classList.remove('clicking'); });
+            }
+
+            // Mobile menu
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileNav = document.getElementById('mobileNav');
+            if (mobileMenuBtn && mobileNav) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileNav.classList.toggle('open');
+                    mobileMenuBtn.innerHTML = mobileNav.classList.contains('open') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+                });
+                mobileNav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+                    mobileNav.classList.remove('open');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }));
+            }
+
+            // Disable custom cursor on touch devices
+            if (window.matchMedia("(pointer: coarse)").matches) {
+                document.querySelectorAll('.custom-cursor-outer, .custom-cursor-inner').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('*').forEach(el => el.style.cursor = 'auto');
+            }
+
+            // Blog category filter
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const blogCards = document.querySelectorAll('.blog-card');
+
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(b => b.classList.remove('active', 'bg-darkBlue', 'text-white', 'border-darkBlue'));
+                    // Add active class to clicked button
+                    btn.classList.add('active', 'bg-darkBlue', 'text-white', 'border-darkBlue');
+                    
+                    const filterValue = btn.getAttribute('data-filter');
+                    
+                    blogCards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
